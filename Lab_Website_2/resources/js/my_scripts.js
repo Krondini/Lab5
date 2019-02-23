@@ -16,7 +16,20 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 				{name:"Samuel Phillips", img: "../resources/img/player3.jpg", alt:"Image of Player 3", year:"Freshman", major:"Math", games_played: 8, pass_yards: 35, rushing_yards: 70, receiving_yards: 98},
 				{name:"Robert Myers", img: "../resources/img/player4.jpg", alt:"Image of Player 4", year:"Senior", major:"Computer Science", games_played: 31, pass_yards: 802, rushing_yards: 375, receiving_yards: 128}];
 
-
+function viewStudentStats(id, toggle)
+{
+	var item = document.getElementById(id);
+	if(toggle == 0)
+	{
+		item.style.visibility = "hidden";
+		item.style.height = "0px";
+	}
+	else if(toggle == 1)
+	{
+		item.style.visibility = "visible";
+		item.style.height = "auto";
+	}
+}
 /*
 	Registration Page:
 		viewStudentStats(id, toggle) method
@@ -33,7 +46,10 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 					 To reveal the html tag (toggle - 1), the visibility will be set to visible and
 					 the height will be set to auto.
 */
-				
+function changeColor(color)
+{
+	var item = document.body.style.backgroundColor = color;
+}
 /*
 	Home Page: 
 		changeColor(color) method
@@ -44,7 +60,39 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 					 provided parameter.
 */
 
+function loadStatsPage()
+{
+	document.getElementById("stats_table").onload = null;
+	var row_counter;
+	var home_score;
+	var away_score;
+	var wins;
+	var losses;
 
+	document.getElementById("losses").innerHTML = parseInt('0');
+	document.getElementById("wins").innerHTML = parseInt('0');
+	for(row_counter = 2; row_counter < document.getElementById("stats_table").rows.length; row_counter++)
+	{	
+		console.log("Test");
+		home_score = document.getElementById("stats_table").rows[row_counter].cells[2].innerHTML;
+		away_score = document.getElementById("stats_table").rows[row_counter].cells[3].innerHTML;
+		if(parseInt(home_score) > parseInt(away_score))
+		{
+			//console.log("inside if");
+			document.getElementById("stats_table").rows[row_counter].cells[4].innerHTML = "CU Boulder";
+			wins += 1;
+			document.getElementById("wins").innerHTML = parseInt(document.getElementById("wins").innerHTML) + 1;
+		}
+		else
+		{
+			//console.log("inside else");
+			document.getElementById("stats_table").rows[row_counter].cells[4].innerHTML = document.getElementById("stats_table").rows[row_counter].cells[1].innerHTML;
+			document.getElementById("losses").innerHTML = parseInt(document.getElementById("losses").innerHTML) + 1;
+		}
+	}
+	//console.log("Wins is a " + typeof(wins))
+	//console.log("Losses is a " + typeof(losses))
+} 
 /*
 	Football Season Stats Page:
 		loadStatsPage method:
