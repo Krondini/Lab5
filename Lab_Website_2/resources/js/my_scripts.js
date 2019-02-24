@@ -11,6 +11,8 @@
 		rushing_yards   - The total number of rushing yards in the student's football career for the Buffs.
 		receiving_yards - The total number of receiving yards in the student's football career for the Buffs.
 */
+var cur_player = 0;//Global variable to iterate through player stats
+
 var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image of Player 1", year:"Sophomore", major:"Art", games_played: 23, pass_yards: 435, rushing_yards: 200, receiving_yards: 88},
 				{name:"James Smith", img: "../resources/img/player2.jpg", alt:"Image of Player 2", year:"Junior", major:"Science", games_played: 17, pass_yards: 192, rushing_yards: 102, receiving_yards: 344},
 				{name:"Samuel Phillips", img: "../resources/img/player3.jpg", alt:"Image of Player 3", year:"Freshman", major:"Math", games_played: 8, pass_yards: 35, rushing_yards: 70, receiving_yards: 98},
@@ -73,7 +75,7 @@ function loadStatsPage()
 	document.getElementById("wins").innerHTML = parseInt('0');
 	for(row_counter = 2; row_counter < document.getElementById("stats_table").rows.length; row_counter++)
 	{	
-		console.log("Test");
+		//console.log("Test");
 		home_score = document.getElementById("stats_table").rows[row_counter].cells[2].innerHTML;
 		away_score = document.getElementById("stats_table").rows[row_counter].cells[3].innerHTML;
 		if(parseInt(home_score) > parseInt(away_score))
@@ -110,6 +112,44 @@ function loadStatsPage()
 						4. Update the second table to show the total number of wins/losses for the Buffs.
 */
 
+function loadPlayersPage()
+{
+	var menu_to_append = document.getElementById("player_selector");
+
+	//console.log("Test");
+	while(cur_player < 4)
+	{
+		var break_tag = document.createElement('br');
+		var aTag = document.createElement('a');
+		aTag.setAttribute("href", '#');
+		aTag.innerHTML = players[cur_player].name;
+		menu_to_append.appendChild(aTag);
+		menu_to_append.appendChild(break_tag);
+
+		cur_player++;
+	}
+	cur_player = 0;
+} 
+
+function switchPlayers(playerNum)
+{
+	//console.log("Test");
+	var avg_pass_yards = parseFloat(players[playerNum].pass_yards / payers[playerNum].games_played);
+	var avg_rush_yards = parseFloat(players[playerNum].rushing_yards / payers[playerNum].games_played);
+	var avg_receiving_yards = parseFloat(players[playerNum].receiving_yards / payers[playerNum].games_played);
+	
+	document.getElementById("player_img").innerHTML = players[playerNum].img;
+
+	document.getElementById("p_year").innerHTML = players[playerNum].year;
+	document.getElementById("p_major").innerHTML = players[playerNum].major;
+	document.getElementById("g_played").innerHTML = players[playerNum].games_played;
+	document.getElementById("p_yards").innerHTML = players[playerNum].pass_yards;
+	document.getElementById("avg_p_yards").innerHTML = avg_pass_yards;
+	document.getElementById("r_yards").innerHTML = players[playerNum].rushing_yards;
+	document.getElementById("avg_r_yards").innerHTML = avg_rush_yards;
+	document.getElementById("rec_yards").innerHTML = players[playerNum].receiving_yards;
+	document.getElementById("avg_rec_yards").innerHTML = avg_receiving_yards;
+}
 /*
 	Football Player Information Page
 		loadPlayersPage method:
